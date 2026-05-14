@@ -1,0 +1,6 @@
+.env
+vendor/
+logs/*.log
+.vscode/
+.claude/
+CLAUDE.md

@@ -1,0 +1,50 @@
+# docker-compose.yml — dos servicios: DB + Ollama
+services:
+
+  # ■■ Postgres 17 con pgvector ■■■■■■■■■■■■■■■■■■■■■■
+  db:
+    image: pgvector/pgvector:pg17
+    container_name: rag-pgvector
+    environment:
+      POSTGRES_USER: rag_user
+      POSTGRES_PASSWORD: rag_pass
+      POSTGRES_DB: rag_db
+    ports:
+      - "5436:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./infra/init.sql:/docker-entrypoint-initdb.d/00-init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rag_user -d rag_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ■■ Ollama: servidor local de LLMs ■■■■■■■■■■■■■■■■■
+  ollama:
+    image: ollama/ollama:0.23.2
+    # versión estable mayo 2026
+    container_name: rag-ollama
+    mem_limit: 8g
+    ports:
+      - "11434:11434"
+      # API local en localhost:11434
+    volumes:
+      - ollama_data:/root/.ollama
+      # modelos persisten entre reinicios
+    environment:
+      - OLLAMA_KEEP_ALIVE=30m
+      # modelo en RAM 30 min tras último uso
+      - OLLAMA_NUM_PARALLEL=2
+      - OLLAMA_MAX_LOADED_MODELS=2
+      - OLLAMA_CONTEXT_LENGTH=8192
+    healthcheck:
+      test: ["CMD-SHELL", "ollama list || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+volumes:
+  pgdata:
+  ollama_data:
