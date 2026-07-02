@@ -1,0 +1,66 @@
+SISTEMA DE GESTIÓN ACADÉMICA SIU-GUARANÍ
+Manual de Procedimientos para Estudiantes — Ciclo Lectivo 2026
+
+INSCRIPCIÓN Y MATRÍCULA
+
+Período de inscripción 2026
+El período de inscripción al ciclo lectivo 2026 se abre el 3 de marzo de 2026 y cierra el 30 de abril de 2026. Los estudiantes que no completen la inscripción dentro de este plazo deberán esperar al ciclo siguiente. No se aceptan inscripciones fuera de término bajo ninguna circunstancia, salvo resolución expresa del Consejo Directivo.
+
+Para inscribirse el estudiante debe ingresar al sistema SIU-Guaraní con su usuario y contraseña institucional, seleccionar las materias del plan de estudios correspondientes al año en curso y confirmar la selección antes de la fecha límite.
+
+Requisitos para la inscripción
+Para poder inscribirse a materias, el estudiante debe tener regularidad vigente. La regularidad se pierde si el estudiante no aprueba al menos una materia durante dos años académicos consecutivos. Además, debe tener al menos el 60% de las materias del año anterior aprobadas para poder avanzar al siguiente nivel.
+
+Los estudiantes de primer año no tienen requisitos previos y pueden inscribirse libremente a todas las materias del primer año del plan de estudios.
+
+Materias correlativas
+El sistema SIU-Guaraní verifica automáticamente las correlatividades. Si una materia requiere tener aprobada otra como correlativa, el sistema bloqueará la inscripción hasta que se regularice la situación. Las correlatividades están definidas en el plan de estudios y no pueden modificarse individualmente.
+
+EXÁMENES Y EVALUACIONES
+
+Turnos de examen 2026
+El calendario de exámenes 2026 establece los siguientes turnos:
+- Turno febrero-marzo: del 10 de febrero al 6 de marzo de 2026
+- Turno julio: del 1 al 31 de julio de 2026
+- Turno noviembre-diciembre: del 2 de noviembre al 18 de diciembre de 2026
+
+Para rendir un examen final el estudiante debe inscribirse al turno correspondiente a través del sistema SIU-Guaraní con al menos 72 horas de anticipación al examen. Las inscripciones a exámenes cierran automáticamente 72 horas antes del inicio del turno.
+
+Condición de regular
+Para rendir un examen final el estudiante debe tener la condición de regular en la materia. La regularidad se obtiene aprobando el 75% de los trabajos prácticos y al menos dos parciales con nota mínima de 4 (cuatro) sobre 10 (diez). La condición de regular tiene una vigencia de dos años a partir de la fecha de obtención.
+
+Promoción directa
+Las materias que admiten promoción directa pueden aprobarse sin rendir examen final si el estudiante obtiene un promedio de 7 (siete) o más en los parciales y trabajos prácticos, con asistencia mínima del 80%. La lista de materias con promoción directa se publica al inicio de cada cuatrimestre.
+
+TRÁMITES ADMINISTRATIVOS
+
+Certificados y constancias
+Los certificados de alumno regular, las constancias de materias aprobadas y los analíticos parciales se solicitan a través del sistema SIU-Guaraní en la sección "Trámites". El tiempo de procesamiento es de 5 días hábiles. Para trámites urgentes, se puede solicitar en ventanilla de alumnado con un recargo administrativo.
+
+Cambio de carrera
+El estudiante puede solicitar cambio de carrera una vez por año académico, durante el período de inscripción. Debe completar el formulario de cambio de carrera disponible en SIU-Guaraní y presentarlo en el departamento de alumnado junto con la documentación requerida. Las materias aprobadas en la carrera anterior pueden reconocerse según la equivalencia establecida por el plan de estudios de la nueva carrera.
+
+Baja de materias
+La baja de materias puede realizarse hasta la cuarta semana de iniciado el cuatrimestre sin que figure en el registro académico. Luego de ese plazo y hasta la décima semana puede realizarse la baja pero la materia quedará registrada como "abandonada". Después de la décima semana no se admiten bajas.
+
+SISTEMA SIU-GUARANÍ
+
+Acceso al sistema
+El sistema SIU-Guaraní es accesible desde guarani.universidad.edu.ar. El usuario inicial es el número de documento sin puntos. La contraseña inicial es la fecha de nacimiento en formato DDMMAAAA. Se recomienda cambiar la contraseña al primer acceso.
+
+En caso de olvido de contraseña, el estudiante puede recuperarla a través del enlace "Olvidé mi contraseña" en la página de inicio. El sistema enviará un correo electrónico a la dirección institucional registrada con el enlace para restablecer la contraseña.
+
+Problemas técnicos
+El soporte técnico del sistema SIU-Guaraní está disponible de lunes a viernes de 8:00 a 20:00 horas a través del correo soporte.guarani@universidad.edu.ar o llamando al interno 2345. Los problemas reportados fuera de horario serán atendidos el siguiente día hábil.
+
+BECAS Y BENEFICIOS
+
+Becas de ayuda económica
+Las becas de ayuda económica están disponibles para estudiantes con situación socioeconómica vulnerable. Las solicitudes se abren en mayo de cada año y el formulario de postulación está disponible en la sección "Bienestar Estudiantil" del portal universitario. Los requisitos incluyen tener regularidad vigente, no adeudar más de un tercio de las materias del plan y presentar documentación socioeconómica actualizada.
+
+Comedor universitario
+El comedor universitario ofrece almuerzo de lunes a viernes. Los estudiantes con beca de comedor pueden acceder gratuitamente. El resto de los estudiantes puede adquirir tickets en la caja del comedor o a través de la aplicación móvil universitaria. El menú semanal se publica los viernes en el portal universitario.
+
+CONTACTO Y ATENCIÓN AL ESTUDIANTE
+
+La Dirección de Alumnado atiende de lunes a viernes de 9:00 a 15:00 horas en el edificio central, planta baja. Para consultas no presenciales puede escribir a alumnado@universidad.edu.ar. Se responde dentro de las 48 horas hábiles.
