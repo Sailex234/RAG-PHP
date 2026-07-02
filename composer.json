@@ -1,4 +1,8 @@
 {
+    "name": "sailex234/rag-php",
+    "description": "A from-scratch Retrieval-Augmented Generation (RAG) pipeline in PHP, using a local Ollama LLM and pgvector for semantic search.",
+    "type": "project",
+    "license": "MIT",
     "require": {
         "php": "^8.2",
         "guzzlehttp/guzzle": "^7.9",
