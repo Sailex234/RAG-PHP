@@ -33,17 +33,4 @@ final class OllamaClient
 
         return $body['message']['content'];
     }
-
-    /** Chat con tool use — devuelve el body completo */
-    public function chatWithTools(array $messages, array $tools): array
-    {
-        $resp = $this->http->post($this->host . '/api/chat', ['json' => [
-            'model'    => $this->model,
-            'messages' => $messages,
-            'tools'    => $tools,
-            'stream'   => false,
-        ]]);
-
-        return json_decode((string) $resp->getBody(), true);
-    }
 }
