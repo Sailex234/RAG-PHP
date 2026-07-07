@@ -15,13 +15,13 @@ final class OllamaClient
     ) {}
 
     /** Chat simple: devuelve el texto de la respuesta */
-    public function chat(array $messages, array|string|null $format = null): string
+    public function chat(array $messages, array|string|null $format = null, float $temperature = 0.1): string
     {
         $payload = [
             'model'    => $this->model,
             'messages' => $messages,
             'stream'   => false,
-            'options'  => ['temperature' => 0.1],
+            'options'  => ['temperature' => $temperature],
         ];
 
         if ($format !== null) {
