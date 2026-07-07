@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RespuestaRAG",
+  "description": "Forma que debe tener toda respuesta del pipeline RAG (RagPipeline::ask). Se usa tanto para pedirle el formato a Ollama (constrained decoding) como para validar la respuesta ya generada.",
+  "type": "object",
+  "properties": {
+    "respuesta": {
+      "type": "string",
+      "description": "Respuesta a la pregunta del usuario, citando cada afirmación con [FRAGMENTO #ID]."
+    },
+    "citas": {
+      "type": "array",
+      "items": { "type": "integer" },
+      "description": "IDs de los FRAGMENTO del contexto realmente usados para armar la respuesta."
+    },
+    "confianza_alta": {
+      "type": "boolean",
+      "description": "true si el contexto respalda la respuesta con claridad; false si es parcial, dudosa o no encontrada."
+    },
+    "advertencia": {
+      "type": ["string", "null"],
+      "description": "Aviso breve si la información está incompleta o hay dudas. null si no aplica."
+    }
+  },
+  "required": ["respuesta", "citas", "confianza_alta", "advertencia"],
+  "additionalProperties": false
+}

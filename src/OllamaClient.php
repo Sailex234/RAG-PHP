@@ -15,13 +15,13 @@ final class OllamaClient
     ) {}
 
     /** Chat simple: devuelve el texto de la respuesta */
-    public function chat(array $messages, array|string|null $format = null): string
+    public function chat(array $messages, array|string|null $format = null, float $temperature = 0.1): string
     {
         $payload = [
             'model'    => $this->model,
             'messages' => $messages,
             'stream'   => false,
-            'options'  => ['temperature' => 0.1],
+            'options'  => ['temperature' => $temperature],
         ];
 
         if ($format !== null) {
@@ -32,18 +32,5 @@ final class OllamaClient
         $body = json_decode((string) $resp->getBody(), true);
 
         return $body['message']['content'];
-    }
-
-    /** Chat con tool use — devuelve el body completo */
-    public function chatWithTools(array $messages, array $tools): array
-    {
-        $resp = $this->http->post($this->host . '/api/chat', ['json' => [
-            'model'    => $this->model,
-            'messages' => $messages,
-            'tools'    => $tools,
-            'stream'   => false,
-        ]]);
-
-        return json_decode((string) $resp->getBody(), true);
     }
 }
