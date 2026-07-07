@@ -6,10 +6,12 @@ It answers questions **strictly from your own documents**, citing the exact sour
 
 ```
 $ php bin/ask.php "¿Cuándo abre la matrícula 2026?"
-[FRAGMENTO 5] El período de inscripción al ciclo lectivo 2026 se abre el 3 de marzo de 2026.
+El período de inscripción al ciclo lectivo 2026 se abre el 3 de marzo de 2026. [FRAGMENTO 5]
+Fuentes: [FRAGMENTO 5]
 
 $ php bin/ask.php "¿Cuál es la capital de Francia?"
 No encuentro esa información.
+[Confianza baja en esta respuesta]
 ```
 
 ## Why this exists
@@ -34,7 +36,9 @@ question
     → EmbeddingClient     question → 768-dim vector
     → VectorStore::search()  top-5 most similar chunks (cosine similarity via HNSW)
     → RagPipeline          builds a prompt: retrieved context + anti-hallucination system prompt
-    → OllamaClient         llama3.1:8b answers, citing [FRAGMENTO #N]
+    → OllamaClient         llama3.1:8b, constrained to schemas/respuesta_rag.json (format + temperature: 0)
+    → RagResponseValidator  validates the JSON against the schema (safety net behind constrained decoding)
+    → structured array     {respuesta, citas[], confianza_alta, advertencia} → printed by bin/ask.php
 ```
 
 If no relevant chunk is found, the pipeline short-circuits before ever calling the LLM and returns "No encuentro esa información." directly.
@@ -43,10 +47,29 @@ If no relevant chunk is found, the pipeline short-circuits before ever calling t
 
 ```
 Respondé SOLO con el CONTEXTO proporcionado. Reglas:
-1) Citá cada afirmación con [FRAGMENTO #ID].
-2) Si la información no está en el contexto, respondé exactamente: "No encuentro esa información."
-3) NO inventes. NO uses conocimiento previo al contexto.
+1) El campo "respuesta" debe citar cada afirmación con [FRAGMENTO #ID].
+2) El campo "citas" debe listar los IDs de FRAGMENTO realmente usados en la respuesta.
+3) "confianza_alta" es true solo si el contexto respalda la respuesta con claridad, false si es parcial o dudosa.
+4) Si la información no está en el contexto, poné en "respuesta" exactamente "No encuentro esa información.",
+   "citas" vacío y "confianza_alta" false.
+5) "advertencia" es un texto breve si hay dudas o información incompleta, o null si no aplica.
+6) NO inventes. NO uses conocimiento previo al contexto.
 ```
+
+### Structured output (JSON Schema)
+
+`RagPipeline::ask()` returns a fixed-shape array, not raw text:
+
+```php
+[
+    'respuesta'      => string,   // answer text, citing [FRAGMENTO #ID]
+    'citas'          => int[],    // FRAGMENTO IDs actually used
+    'confianza_alta' => bool,     // true if the context clearly supports the answer
+    'advertencia'    => ?string,  // short caveat if uncertain, null otherwise
+]
+```
+
+The shape is enforced two ways: Ollama's native constrained decoding (`format` set to the full JSON Schema, `temperature: 0`) forces the model to only sample tokens that produce valid JSON, and `RagResponseValidator` re-validates the decoded array against `schemas/respuesta_rag.json` (`opis/json-schema`) as a cheap safety net — it catches shape drift even if the model or Ollama version changes, though it can't verify that `citas` semantically matches what's cited in `respuesta`.
 
 ## Stack
 
@@ -89,7 +112,7 @@ Drop your own `.txt` files into `samples/txt/` and re-run `bin/ingest.php` to in
 ## Testing
 
 ```bash
-vendor/bin/phpunit tests/ChunkerTest.php
+vendor/bin/phpunit tests/
 vendor/bin/phpstan analyse src --level=5
 ```
 
@@ -99,18 +122,22 @@ vendor/bin/phpstan analyse src --level=5
 rag-php/
 ├── bin/
 │   ├── ingest.php        # CLI: document ingestion (txt → chunks → embeddings → pgvector)
-│   └── ask.php            # CLI: RAG query (question → embedding → search → LLM → answer)
+│   └── ask.php            # CLI: RAG query (question → embedding → search → LLM → structured answer)
 ├── infra/
 │   └── init.sql            # Postgres schema: documents table, HNSW index
 ├── samples/txt/            # Sample corpus for the ingestion demo
+├── schemas/
+│   └── respuesta_rag.json  # JSON Schema for the RAG response shape
 ├── src/
 │   ├── Chunker.php         # Splits text into overlapping chunks
 │   ├── EmbeddingClient.php  # Batch embeddings via Ollama /api/embed
-│   ├── OllamaClient.php    # Chat completions via Ollama /api/chat
-│   ├── RagPipeline.php     # Orchestrates the full query flow with citations
+│   ├── OllamaClient.php    # Chat completions via Ollama /api/chat, supports format + temperature
+│   ├── RagPipeline.php     # Orchestrates the full query flow, returns validated structured JSON
+│   ├── RagResponseValidator.php  # Validates the LLM's JSON against schemas/respuesta_rag.json
 │   └── VectorStore.php     # pgvector insert + cosine-similarity search
 ├── tests/
-│   └── ChunkerTest.php     # Unit tests for the chunking algorithm
+│   ├── ChunkerTest.php              # Unit tests for the chunking algorithm
+│   └── RagResponseValidatorTest.php # Tests for the schema validator (valid / invalid responses)
 └── docker-compose.yml       # Postgres+pgvector and Ollama services
 ```
 
@@ -122,7 +149,7 @@ rag-php/
 
 ## Roadmap
 
-`evals/`, `prompts/`, and `schemas/` are scaffolded but not yet built out — planned next steps are automated retrieval/answer evaluation, externalized prompt templates, and JSON-schema-validated structured output.
+`evals/` and `prompts/` are scaffolded but not yet built out — planned next steps are automated retrieval/answer evaluation and externalized prompt templates. JSON-schema-validated structured output (`schemas/`) is already implemented — see [Structured output](#structured-output-json-schema) above.
 
 ## License
 
